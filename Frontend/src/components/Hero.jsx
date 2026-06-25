@@ -1,4 +1,4 @@
-import heroImage from "../assets/food-bg.PNG";
+import heroImage from "../assets/Food-bg.PNG";
 
 function Hero({ search, setSearch }) {
   return (
