@@ -14,7 +14,9 @@ export function CartProvider({ children }) {
 
 
 
-  // Add Item To Cart
+
+
+  // ADD ITEM TO CART
 
   const addToCart = (item, id) => {
 
@@ -28,18 +30,25 @@ export function CartProvider({ children }) {
 
 
       const confirmChange = window.confirm(
+
         "Your cart contains items from another restaurant. Do you want to clear cart and add this item?"
+
       );
+
 
 
       if(confirmChange){
 
+
         setCart([]);
+
 
       }
       else{
 
+
         return;
+
 
       }
 
@@ -48,20 +57,99 @@ export function CartProvider({ children }) {
 
 
 
+
     setRestaurantId(id);
 
 
 
-    setCart((prev)=>[
 
-      ...prev,
 
-      {
-        ...item,
-        qty: 1
+    setCart((prev)=>{
+
+
+
+      const existingItem = prev.find(
+
+        (cartItem)=>
+
+        cartItem.id === item.id &&
+
+        cartItem.restaurantId === id
+
+      );
+
+
+
+
+
+      // If item already exists increase quantity
+
+      if(existingItem){
+
+
+
+        return prev.map((cartItem)=>
+
+
+
+          cartItem.id === item.id &&
+
+          cartItem.restaurantId === id
+
+
+
+          ?
+
+          {
+
+            ...cartItem,
+
+            qty: cartItem.qty + 1
+
+          }
+
+
+
+          :
+
+          cartItem
+
+
+
+        );
+
+
+
       }
 
-    ]);
+
+
+
+
+      // New item add
+
+
+      return [
+
+        ...prev,
+
+
+        {
+
+          ...item,
+
+          restaurantId:id,
+
+          qty:1
+
+        }
+
+
+      ];
+
+
+
+    });
 
 
 
@@ -71,7 +159,13 @@ export function CartProvider({ children }) {
 
 
 
-  // Increase Quantity
+
+
+
+
+
+  // INCREASE QUANTITY
+
 
   const increaseQty = (index)=>{
 
@@ -92,12 +186,17 @@ export function CartProvider({ children }) {
 
 
 
-  // Decrease Quantity
+
+
+
+  // DECREASE QUANTITY
+
 
   const decreaseQty = (index)=>{
 
 
     const updatedCart = [...cart];
+
 
 
     if(updatedCart[index].qty > 1){
@@ -112,6 +211,7 @@ export function CartProvider({ children }) {
     setCart(updatedCart);
 
 
+
   };
 
 
@@ -120,25 +220,36 @@ export function CartProvider({ children }) {
 
 
 
-  // Remove Single Item
+
+
+  // REMOVE SINGLE ITEM
+
 
   const removeItem = (index)=>{
 
 
     const updatedCart = cart.filter(
+
       (_,i)=> i !== index
+
     );
+
 
 
     setCart(updatedCart);
 
 
 
-    if(updatedCart.length===0){
+
+
+    if(updatedCart.length === 0){
+
 
       setRestaurantId(null);
 
+
     }
+
 
 
   };
@@ -148,7 +259,11 @@ export function CartProvider({ children }) {
 
 
 
-  // Clear Whole Cart
+
+
+
+  // CLEAR CART
+
 
   const removeCart = ()=>{
 
@@ -166,13 +281,18 @@ export function CartProvider({ children }) {
 
 
 
+
+
   return (
+
 
 
     <CartContext.Provider
 
 
+
       value={{
+
 
         cart,
 
@@ -186,22 +306,29 @@ export function CartProvider({ children }) {
 
         removeCart
 
+
       }}
+
 
 
     >
 
 
+
       {children}
+
 
 
     </CartContext.Provider>
 
 
+
   );
 
 
+
 }
+
 
 
 

@@ -61,20 +61,26 @@ Restaurant Not Found
 
 const addItem=(food)=>{
 
-
 addToCart(
-
 {
-
 ...food,
-
-restaurantName:restaurant.name
-
+restaurantName:restaurant.name,
+restaurantId:restaurant.id
 },
-
 restaurant.id
-
 );
+
+setAdded(food.id);
+
+
+setTimeout(()=>{
+
+setAdded(null)
+
+},800);
+
+
+};
 
 
 
