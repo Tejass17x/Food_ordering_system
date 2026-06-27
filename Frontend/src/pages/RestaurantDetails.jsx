@@ -26,9 +26,7 @@ const restaurant = restaurants.find(
 
 
 
-
 const {addToCart}=useCart();
-
 
 
 const [added,setAdded]=useState(null);
@@ -36,8 +34,8 @@ const [added,setAdded]=useState(null);
 
 
 
-
 if(!restaurant){
+
 
 return(
 
@@ -51,7 +49,8 @@ Restaurant Not Found
 
 </div>
 
-)
+);
+
 
 }
 
@@ -61,28 +60,23 @@ Restaurant Not Found
 
 const addItem=(food)=>{
 
+
 addToCart(
+
 {
+
 ...food,
+
 restaurantName:restaurant.name,
+
 restaurantId:restaurant.id
+
 },
+
 restaurant.id
+
 );
 
-setAdded(food.id);
-
-
-setTimeout(()=>{
-
-setAdded(null)
-
-},800);
-
-
-};
-
-
 
 
 setAdded(food.id);
@@ -91,7 +85,7 @@ setAdded(food.id);
 
 setTimeout(()=>{
 
-setAdded(null)
+setAdded(null);
 
 },800);
 
@@ -114,28 +108,13 @@ return(
 
 
 
-<div className="
-bg-gray-100
-min-h-screen
-p-5
-">
+<div className="bg-gray-100 min-h-screen p-5">
+
+
+<div className="max-w-6xl mx-auto">
 
 
 
-
-
-<div className="
-max-w-6xl
-mx-auto
-">
-
-
-
-
-
-
-
-{/* Restaurant Image */}
 
 
 <img
@@ -160,10 +139,6 @@ shadow-lg
 
 
 
-{/* Restaurant Details */}
-
-
-
 <div className="
 bg-white
 rounded-2xl
@@ -171,9 +146,6 @@ shadow
 p-6
 mt-6
 ">
-
-
-
 
 
 <h1 className="
@@ -184,8 +156,6 @@ font-bold
 {restaurant.name}
 
 </h1>
-
-
 
 
 
@@ -203,18 +173,11 @@ text-lg
 
 
 
-
-
-
 <div className="
 flex
 gap-4
-flex-wrap
 mt-5
 ">
-
-
-
 
 
 <span className="
@@ -233,8 +196,6 @@ font-semibold
 
 
 
-
-
 <span className="
 bg-orange-100
 text-orange-700
@@ -249,15 +210,7 @@ font-semibold
 </span>
 
 
-
-
-
-
-
 </div>
-
-
-
 
 
 
@@ -275,9 +228,6 @@ text-gray-700
 
 
 
-
-
-
 <p className="
 mt-3
 text-gray-600
@@ -289,20 +239,11 @@ text-gray-600
 
 
 
-
-
-
 </div>
 
 
 
 
-
-
-
-
-
-{/* Menu */}
 
 
 
@@ -335,12 +276,9 @@ gap-6
 
 
 
-
 {
 
 restaurant.menu.map((food)=>(
-
-
 
 
 <div
@@ -355,17 +293,13 @@ p-5
 flex
 justify-between
 items-center
-hover:shadow-xl
-transition
 "
+
 
 >
 
 
-
-
 <div>
-
 
 
 <h3 className="
@@ -376,8 +310,6 @@ font-bold
 {food.name}
 
 </h3>
-
-
 
 
 
@@ -402,27 +334,23 @@ mt-2
 
 
 
-
 <button
 
 
 onClick={()=>addItem(food)}
 
 
+className={
 
-className={`
+`
 px-5
 py-2
 rounded-xl
 text-white
 font-semibold
-transition
-transform
-hover:scale-105
-
 
 ${
-added === food.id
+added===food.id
 
 ?
 
@@ -434,18 +362,17 @@ added === food.id
 
 }
 
-`}
+`
+
+}
 
 
 >
 
 
-
-
-
 {
 
-added === food.id
+added===food.id
 
 ?
 
@@ -465,10 +392,7 @@ added === food.id
 
 
 
-
 </div>
-
-
 
 
 
@@ -481,12 +405,7 @@ added === food.id
 
 
 
-
-
 </div>
-
-
-
 
 
 
@@ -494,12 +413,7 @@ added === food.id
 </div>
 
 
-
-
-
 </div>
-
-
 
 
 
@@ -509,7 +423,6 @@ added === food.id
 
 
 </>
-
 
 )
 

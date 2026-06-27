@@ -5,9 +5,7 @@ import API from "../services/api";
 
 function Signup(){
 
-
-const navigate = useNavigate();
-
+const navigate=useNavigate();
 
 
 const [data,setData]=useState({
@@ -21,8 +19,7 @@ password:""
 
 
 
-const handleChange=(e)=>{
-
+const change=(e)=>{
 
 setData({
 
@@ -32,92 +29,86 @@ setData({
 
 });
 
-
 };
 
 
 
-
-
-const createAccount=async()=>{
-
-
-if(
-!data.name ||
-!data.email ||
-!data.mobile ||
-!data.password
-){
-
-alert("Fill all details");
-
-return;
-
-}
-
-
-
-if(data.mobile.length!==10){
-
-alert("Mobile number must be 10 digits");
-
-return;
-
-}
-
+const signup=async()=>{
 
 
 try{
 
 
-const response =
 await API.post(
 "/auth/signup",
 data
 );
 
 
-
-alert(response.data.message);
-
+alert("Signup Successful");
 
 
 navigate("/");
 
 
-
 }
 catch(error){
 
+console.log(error);
+
 
 alert(
-
 error.response?.data?.message ||
-"Signup failed"
-
+"Signup Failed"
 );
 
 
 }
 
 
-
 };
-
-
 
 
 
 return(
 
+<div
 
-<div className="min-h-screen bg-gray-100 flex items-center justify-center">
+className="
+min-h-screen
+bg-gray-100
+flex
+items-center
+justify-center
+"
+
+>
 
 
-<div className="bg-white p-8 rounded-2xl shadow-xl w-full max-w-md">
+<div
+
+className="
+bg-white
+p-8
+rounded-3xl
+shadow-xl
+w-96
+"
+
+>
 
 
-<h1 className="text-3xl font-bold text-center text-orange-500">
+<h1
+
+className="
+text-3xl
+font-bold
+text-center
+mb-6
+text-orange-500
+"
+
+>
 
 Create Account
 
@@ -125,18 +116,24 @@ Create Account
 
 
 
-
 <input
 
 name="name"
 
-placeholder="Full Name"
+placeholder="Name"
 
-onChange={handleChange}
+className="
+border
+w-full
+p-3
+rounded-xl
+mb-3
+"
 
-className="w-full border p-3 rounded-lg mt-5"
+onChange={change}
 
 />
+
 
 
 
@@ -146,9 +143,15 @@ name="email"
 
 placeholder="Email"
 
-onChange={handleChange}
+className="
+border
+w-full
+p-3
+rounded-xl
+mb-3
+"
 
-className="w-full border p-3 rounded-lg mt-3"
+onChange={change}
 
 />
 
@@ -159,26 +162,19 @@ className="w-full border p-3 rounded-lg mt-3"
 
 name="mobile"
 
-placeholder="Mobile Number"
+placeholder="Mobile"
 
-maxLength="10"
+className="
+border
+w-full
+p-3
+rounded-xl
+mb-3
+"
 
-onChange={(e)=>
-
-setData({
-
-...data,
-
-mobile:e.target.value.replace(/\D/g,"")
-
-})
-
-}
-
-className="w-full border p-3 rounded-lg mt-3"
+onChange={change}
 
 />
-
 
 
 
@@ -187,42 +183,71 @@ className="w-full border p-3 rounded-lg mt-3"
 
 name="password"
 
-type="password"
-
 placeholder="Password"
 
-onChange={handleChange}
+type="password"
 
-className="w-full border p-3 rounded-lg mt-3"
+className="
+border
+w-full
+p-3
+rounded-xl
+mb-5
+"
+
+onChange={change}
 
 />
 
 
 
 
-
 <button
 
-onClick={createAccount}
+onClick={signup}
 
-className="w-full bg-orange-500 text-white p-3 rounded-lg mt-5"
+className="
+bg-orange-500
+text-white
+w-full
+p-3
+rounded-xl
+font-bold
+"
 
 >
 
-Create Account
+Signup
 
 </button>
 
 
 
+
+<p
+
+className="
+text-center
+mt-5
+cursor-pointer
+"
+
+onClick={()=>navigate("/")}
+
+>
+
+Already have account?
+
+</p>
+
+
+
 </div>
 
 
 </div>
-
 
 )
-
 
 }
 

@@ -1,7 +1,8 @@
-const mongoose = require("mongoose");
+const mongoose=require("mongoose");
 
 
-const restaurantSchema = new mongoose.Schema({
+const restaurantSchema=new mongoose.Schema({
+
 
 name:{
 type:String,
@@ -15,29 +16,19 @@ required:true
 },
 
 
-rating:{
-type:Number
-},
+rating:Number,
 
 
-time:{
-type:String
-},
+time:String,
 
 
-location:{
-type:String
-},
+location:String,
 
 
-description:{
-type:String
-},
+description:String,
 
 
-image:{
-type:String
-},
+image:String,
 
 
 menu:[
@@ -55,10 +46,10 @@ image:String
 ]
 
 
-},{
+},
+{
 timestamps:true
 });
-
 
 
 module.exports =

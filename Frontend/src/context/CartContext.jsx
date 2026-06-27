@@ -1,330 +1,296 @@
-import { createContext, useContext, useState } from "react";
+import {createContext,useContext,useState} from "react";
 
 
-const CartContext = createContext();
+const CartContext=createContext();
 
 
 
-export function CartProvider({ children }) {
+export function CartProvider({children}){
 
 
-  const [cart, setCart] = useState([]);
+const [cart,setCart]=useState([]);
 
-  const [restaurantId, setRestaurantId] = useState(null);
+const [restaurantId,setRestaurantId]=useState(null);
 
 
 
 
+const addToCart=(item,id)=>{
 
-  // ADD ITEM TO CART
 
-  const addToCart = (item, id) => {
 
+if(
+restaurantId &&
+restaurantId !== id
+){
 
-    // Different restaurant check
 
-    if (
-      restaurantId &&
-      restaurantId !== id
-    ) {
+const confirm =
+window.confirm(
+"Cart has items from another restaurant. Clear cart?"
+);
 
 
-      const confirmChange = window.confirm(
 
-        "Your cart contains items from another restaurant. Do you want to clear cart and add this item?"
+if(!confirm){
 
-      );
+return;
 
+}
 
 
-      if(confirmChange){
+setCart([]);
 
+}
 
-        setCart([]);
 
 
-      }
-      else{
+setRestaurantId(id);
 
 
-        return;
 
 
-      }
+setCart(prev=>{
 
 
-    }
+const existing = prev.find(
 
+(cartItem)=>
 
+cartItem.id === item.id
 
+&&
 
-    setRestaurantId(id);
+cartItem.restaurantId === id
 
+);
 
 
 
 
-    setCart((prev)=>{
+if(existing){
 
 
+return prev.map(cartItem=>
 
-      const existingItem = prev.find(
 
-        (cartItem)=>
+cartItem.id === item.id
 
-        cartItem.id === item.id &&
+&&
 
-        cartItem.restaurantId === id
+cartItem.restaurantId === id
 
-      );
 
+?
 
+{
 
+...cartItem,
 
+qty:cartItem.qty+1
 
-      // If item already exists increase quantity
+}
 
-      if(existingItem){
 
+:
 
+cartItem
 
-        return prev.map((cartItem)=>
 
+);
 
 
-          cartItem.id === item.id &&
+}
 
-          cartItem.restaurantId === id
 
 
 
-          ?
+return [
 
-          {
+...prev,
 
-            ...cartItem,
+{
 
-            qty: cartItem.qty + 1
+...item,
 
-          }
+restaurantId:id,
 
+qty:1
 
+}
 
-          :
+];
 
-          cartItem
 
 
+});
 
-        );
 
 
+};
 
-      }
 
 
 
 
 
-      // New item add
+const increaseQty=(index)=>{
 
 
-      return [
+setCart(prev=>
 
-        ...prev,
+prev.map((item,i)=>
 
+i===index
 
-        {
+?
 
-          ...item,
+{
 
-          restaurantId:id,
+...item,
 
-          qty:1
+qty:item.qty+1
 
-        }
+}
 
+:
 
-      ];
+item
 
+)
 
+);
 
-    });
 
+};
 
 
-  };
 
 
 
 
+const decreaseQty=(index)=>{
 
 
+setCart(prev=>
 
+prev.map((item,i)=>{
 
 
+if(i===index && item.qty>1){
 
-  // INCREASE QUANTITY
+return{
 
+...item,
 
-  const increaseQty = (index)=>{
+qty:item.qty-1
 
+}
 
-    const updatedCart = [...cart];
+}
 
 
-    updatedCart[index].qty += 1;
+return item;
 
 
-    setCart(updatedCart);
+})
 
+);
 
-  };
 
 
+};
 
 
 
 
 
 
+const removeItem=(index)=>{
 
-  // DECREASE QUANTITY
 
+setCart(prev=>{
 
-  const decreaseQty = (index)=>{
 
+const updated=
 
-    const updatedCart = [...cart];
+prev.filter(
 
+(_,i)=>i!==index
 
+);
 
-    if(updatedCart[index].qty > 1){
 
 
-      updatedCart[index].qty -= 1;
+if(updated.length===0){
 
+setRestaurantId(null);
 
-    }
+}
 
 
-    setCart(updatedCart);
+return updated;
 
 
+});
 
-  };
 
+};
 
 
 
 
 
 
+const removeCart=()=>{
 
 
-  // REMOVE SINGLE ITEM
+setCart([]);
 
+setRestaurantId(null);
 
-  const removeItem = (index)=>{
 
+};
 
-    const updatedCart = cart.filter(
 
-      (_,i)=> i !== index
 
-    );
 
 
 
-    setCart(updatedCart);
 
+return(
 
+<CartContext.Provider
 
 
+value={{
 
-    if(updatedCart.length === 0){
+cart,
 
+addToCart,
 
-      setRestaurantId(null);
+increaseQty,
 
+decreaseQty,
 
-    }
+removeItem,
 
+removeCart
 
 
-  };
+}}
 
 
+>
 
 
+{children}
 
 
+</CartContext.Provider>
 
 
-
-  // CLEAR CART
-
-
-  const removeCart = ()=>{
-
-
-    setCart([]);
-
-    setRestaurantId(null);
-
-
-  };
-
-
-
-
-
-
-
-
-
-  return (
-
-
-
-    <CartContext.Provider
-
-
-
-      value={{
-
-
-        cart,
-
-        addToCart,
-
-        increaseQty,
-
-        decreaseQty,
-
-        removeItem,
-
-        removeCart
-
-
-      }}
-
-
-
-    >
-
-
-
-      {children}
-
-
-
-    </CartContext.Provider>
-
-
-
-  );
-
+)
 
 
 }
@@ -333,12 +299,8 @@ export function CartProvider({ children }) {
 
 
 
-
-
 export function useCart(){
 
-
-  return useContext(CartContext);
-
+return useContext(CartContext);
 
 }

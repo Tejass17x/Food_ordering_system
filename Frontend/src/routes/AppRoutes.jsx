@@ -1,195 +1,65 @@
-import { Routes, Route } from "react-router-dom";
+import {
+Routes,
+Route
+} from "react-router-dom";
 
-
-// Pages
 
 import Login from "../pages/Login";
 import Signup from "../pages/Signup";
-import Otp from "../pages/Otp";
 import Home from "../pages/Home";
-
 import RestaurantDetails from "../pages/RestaurantDetails";
-
 import Cart from "../pages/Cart";
 import Checkout from "../pages/Checkout";
-
 import Profile from "../pages/Profile";
 import EditProfile from "../pages/EditProfile";
-
 import Orders from "../pages/Orders";
 import NotFound from "../pages/NotFound";
 
 
-
-
 function AppRoutes(){
 
-
 return(
-
 
 <Routes>
 
 
+<Route path="/" element={<Login/>}/>
 
-{/* Login */}
+<Route path="/signup" element={<Signup/>}/>
 
-<Route
+<Route path="/home" element={<Home/>}/>
 
-path="/"
-
-element={<Login/>}
-
-/>
-
-
-
-
-
-{/* Signup */}
-
-<Route
-
-path="/signup"
-
-element={<Signup/>}
-
-/>
-
-
-
-
-
-{/* OTP */}
-
-<Route
-
-path="/otp"
-
-element={<Otp/>}
-
-/>
-
-
-
-
-
-{/* Home */}
-
-<Route
-
-path="/home"
-
-element={<Home/>}
-
-/>
-
-
-
-
-
-{/* Restaurant Details */}
-
-<Route
-
+<Route 
 path="/restaurant/:id"
-
 element={<RestaurantDetails/>}
-
 />
 
+<Route path="/cart" element={<Cart/>}/>
 
+<Route path="/checkout" element={<Checkout/>}/>
 
+<Route path="/profile" element={<Profile/>}/>
 
-
-{/* Cart */}
-
-<Route
-
-path="/cart"
-
-element={<Cart/>}
-
-/>
-
-
-
-
-
-{/* Checkout */}
-
-<Route
-
-path="/checkout"
-
-element={<Checkout/>}
-
-/>
-
-
-
-
-
-{/* Profile */}
-
-<Route
-
-path="/profile"
-
-element={<Profile/>}
-
-/>
-
-
-
-
-
-{/* Edit Profile */}
-
-<Route
-
+<Route 
 path="/edit-profile"
-
 element={<EditProfile/>}
-
 />
 
-
-
-
-
-{/* Orders */}
-
-<Route
-
+<Route 
 path="/orders"
-
 element={<Orders/>}
-
 />
 
 
-
-
-
-{/* Page Not Found */}
-
-<Route
-
+<Route 
 path="*"
-
 element={<NotFound/>}
-
 />
-
-
 
 
 </Routes>
 
-
-);
-
+)
 
 }
 

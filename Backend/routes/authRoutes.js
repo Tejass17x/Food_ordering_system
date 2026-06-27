@@ -1,14 +1,11 @@
-const express=require("express");
+const express = require("express");
 
-const router=express.Router();
+const router = express.Router();
 
 
 const {
-
 signup,
-
 login
-
 }=require("../controllers/authController");
 
 
@@ -26,4 +23,4 @@ login
 
 
 
-module.exports=router;
+module.exports = router;

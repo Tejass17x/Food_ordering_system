@@ -6,11 +6,7 @@ const jwt=require("jsonwebtoken");
 
 
 
-
-// SIGNUP
-
 exports.signup=async(req,res)=>{
-
 
 try{
 
@@ -24,12 +20,7 @@ password
 
 
 
-if(
-!name ||
-!email ||
-!mobile ||
-!password
-){
+if(!name || !email || !mobile || !password){
 
 return res.status(400).json({
 
@@ -41,14 +32,14 @@ message:"All fields required"
 
 
 
-const exist =
+const existingUser =
 await User.findOne({
 email:email.toLowerCase()
 });
 
 
 
-if(exist){
+if(existingUser){
 
 return res.status(400).json({
 
@@ -61,10 +52,7 @@ message:"Email already registered"
 
 
 const hashPassword =
-await bcrypt.hash(
-password,
-10
-);
+await bcrypt.hash(password,10);
 
 
 
@@ -73,17 +61,13 @@ await User.create({
 
 name,
 
-email:
-email.toLowerCase(),
+email:email.toLowerCase(),
 
 mobile,
 
-password:
-hashPassword
-
+password:hashPassword
 
 });
-
 
 
 
@@ -91,23 +75,13 @@ res.status(201).json({
 
 message:"Signup successful",
 
-user:{
-
-id:user._id,
-
-name:user.name,
-
-email:user.email,
-
-mobile:user.mobile
-
-}
-
+user
 
 });
 
 
 }
+
 catch(error){
 
 res.status(500).json({
@@ -126,11 +100,7 @@ message:error.message
 
 
 
-// LOGIN
-
-
 exports.login=async(req,res)=>{
-
 
 try{
 
@@ -142,11 +112,14 @@ password
 
 
 
+console.log(req.body);
+
+
+
 const user =
 await User.findOne({
 
-email:
-email.toLowerCase()
+email:email.toLowerCase()
 
 });
 
@@ -164,19 +137,15 @@ message:"User not found"
 
 
 
-
-const check =
+const match =
 await bcrypt.compare(
-
 password,
-
 user.password
-
 );
 
 
 
-if(!check){
+if(!match){
 
 return res.status(400).json({
 
@@ -185,7 +154,6 @@ message:"Wrong password"
 });
 
 }
-
 
 
 
@@ -206,41 +174,26 @@ expiresIn:"7d"
 
 
 
-
 res.json({
 
 message:"Login successful",
 
-
 token,
 
-
-user:{
-
-id:user._id,
-
-name:user.name,
-
-email:user.email,
-
-mobile:user.mobile
-
-}
-
+user
 
 });
 
 
 }
-catch(error){
 
+catch(error){
 
 res.status(500).json({
 
 message:error.message
 
 });
-
 
 }
 
