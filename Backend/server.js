@@ -9,36 +9,38 @@ const restaurantRoutes = require("./routes/restaurantRoutes");
 
 const app = express();
 
+// Database
 connectDB();
 
+// CORS
 app.use(
   cors({
     origin: [
       "http://localhost:5173",
       "http://localhost:5174",
-      "https://food-ordering-system-virid.vercel.app",
+      "https://food-ordering-system-six-psi.vercel.app"
     ],
-    credentials: true,
+    methods: ["GET", "POST", "PUT", "DELETE", "OPTIONS"],
+    credentials: true
   })
 );
 
+// Body Parser
 app.use(express.json());
+app.use(express.urlencoded({ extended: true }));
 
-app.use(
-  express.urlencoded({
-    extended: true,
-  })
-);
-
+// Home Route
 app.get("/", (req, res) => {
   res.json({
-    message: "Food Ordering Backend Running 🚀",
+    message: "Food Ordering Backend Running 🚀"
   });
 });
 
+// API Routes
 app.use("/api/auth", authRoutes);
 app.use("/api/restaurants", restaurantRoutes);
 
+// Server
 const PORT = process.env.PORT || 5000;
 
 app.listen(PORT, () => {
