@@ -12,6 +12,7 @@ const app = express();
 // Database
 connectDB();
 
+
 // CORS
 app.use(
   cors({
@@ -20,14 +21,26 @@ app.use(
       "http://localhost:5174",
       "https://food-ordering-system-six-psi.vercel.app"
     ],
-    methods: ["GET", "POST", "PUT", "DELETE", "OPTIONS"],
+    methods: [
+      "GET",
+      "POST",
+      "PUT",
+      "DELETE",
+      "OPTIONS"
+    ],
+    allowedHeaders: [
+      "Content-Type",
+      "Authorization"
+    ],
     credentials: true
   })
 );
 
+
 // Body Parser
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
+
 
 // Home Route
 app.get("/", (req, res) => {
@@ -36,9 +49,11 @@ app.get("/", (req, res) => {
   });
 });
 
+
 // API Routes
 app.use("/api/auth", authRoutes);
 app.use("/api/restaurants", restaurantRoutes);
+
 
 // Server
 const PORT = process.env.PORT || 5000;
