@@ -7,31 +7,26 @@ const connectDB = require("./config/db");
 const authRoutes = require("./routes/authRoutes");
 const restaurantRoutes = require("./routes/restaurantRoutes");
 
-
 const app = express();
 
 
-// Database Connection
+// Database
 connectDB();
 
 
-// CORS Configuration
+// CORS
 app.use(
   cors({
-    origin: [
-      "http://localhost:5173",
-      "http://localhost:5174",
-      "https://food-ordering-system-pink.vercel.app"
-    ],
-    methods: [
-      "GET",
-      "POST",
-      "PUT",
-      "DELETE"
-    ],
+    origin: "https://food-ordering-system-pink.vercel.app",
+    methods: ["GET", "POST", "PUT", "DELETE", "OPTIONS"],
+    allowedHeaders: ["Content-Type", "Authorization"],
     credentials: true
   })
 );
+
+
+// Preflight
+app.options("*", cors());
 
 
 // Body Parser
@@ -39,7 +34,7 @@ app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 
 
-// Home Route
+// Test Route
 app.get("/", (req, res) => {
   res.json({
     message: "Food Ordering Backend Running 🚀"
@@ -47,7 +42,7 @@ app.get("/", (req, res) => {
 });
 
 
-// API Routes
+// Routes
 app.use("/api/auth", authRoutes);
 app.use("/api/restaurants", restaurantRoutes);
 
