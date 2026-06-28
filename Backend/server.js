@@ -9,17 +9,18 @@ const restaurantRoutes = require("./routes/restaurantRoutes");
 
 const app = express();
 
-// Database
+
+// Database Connection
 connectDB();
 
 
-// CORS
+// CORS Configuration
 app.use(
   cors({
     origin: [
       "http://localhost:5173",
       "http://localhost:5174",
-      "https://food-ordering-system-six-psi.vercel.app"
+      "https://food-ordering-system-pink.vercel.app"
     ],
     methods: [
       "GET",
@@ -28,13 +29,13 @@ app.use(
       "DELETE",
       "OPTIONS"
     ],
-    allowedHeaders: [
-      "Content-Type",
-      "Authorization"
-    ],
     credentials: true
   })
 );
+
+
+// Handle Preflight Requests
+app.options("*", cors());
 
 
 // Body Parser
