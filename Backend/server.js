@@ -7,6 +7,7 @@ const connectDB = require("./config/db");
 const authRoutes = require("./routes/authRoutes");
 const restaurantRoutes = require("./routes/restaurantRoutes");
 
+
 const app = express();
 
 
@@ -26,16 +27,11 @@ app.use(
       "GET",
       "POST",
       "PUT",
-      "DELETE",
-      "OPTIONS"
+      "DELETE"
     ],
     credentials: true
   })
 );
-
-
-// Handle Preflight Requests
-app.options("*", cors());
 
 
 // Body Parser
