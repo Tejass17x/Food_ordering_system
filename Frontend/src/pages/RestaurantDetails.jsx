@@ -109,7 +109,7 @@ restaurant._id
 
 
 
-setAdded(food._id);
+setAdded(food._id || food.id);
 
 
 
@@ -377,7 +377,7 @@ text-white
 font-semibold
 
 ${
-added===food._id
+added === (food._id || food.id)
 
 ?
 

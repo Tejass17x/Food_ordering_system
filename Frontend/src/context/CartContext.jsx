@@ -15,8 +15,8 @@ const [restaurantId,setRestaurantId]=useState(null);
 
 
 
-const addToCart=(item,id)=>{
 
+const addToCart=(item,id)=>{
 
 
 if(
@@ -25,23 +25,20 @@ restaurantId !== id
 ){
 
 
-const confirm =
-window.confirm(
+const confirmClear = window.confirm(
 "Cart has items from another restaurant. Clear cart?"
 );
 
 
-
-if(!confirm){
-
+if(!confirmClear){
 return;
-
 }
 
 
 setCart([]);
 
 }
+
 
 
 
@@ -53,11 +50,15 @@ setRestaurantId(id);
 setCart(prev=>{
 
 
+const itemId = item._id || item.id;
+
+
+
 const existing = prev.find(
 
 (cartItem)=>
 
-cartItem.id === item.id
+(cartItem._id || cartItem.id) === itemId
 
 &&
 
@@ -68,13 +69,13 @@ cartItem.restaurantId === id
 
 
 
+
 if(existing){
 
 
 return prev.map(cartItem=>
 
-
-cartItem.id === item.id
+(cartItem._id || cartItem.id) === itemId
 
 &&
 
@@ -87,7 +88,7 @@ cartItem.restaurantId === id
 
 ...cartItem,
 
-qty:cartItem.qty+1
+qty:cartItem.qty + 1
 
 }
 
@@ -101,6 +102,8 @@ cartItem
 
 
 }
+
+
 
 
 
@@ -126,8 +129,9 @@ qty:1
 });
 
 
-
 };
+
+
 
 
 
@@ -157,12 +161,14 @@ qty:item.qty+1
 
 item
 
+
 )
 
 );
 
 
 };
+
 
 
 
@@ -179,15 +185,18 @@ prev.map((item,i)=>{
 
 if(i===index && item.qty>1){
 
+
 return{
 
 ...item,
 
 qty:item.qty-1
 
-}
+};
+
 
 }
+
 
 
 return item;
@@ -195,11 +204,12 @@ return item;
 
 })
 
+
 );
 
 
-
 };
+
 
 
 
@@ -212,9 +222,7 @@ const removeItem=(index)=>{
 setCart(prev=>{
 
 
-const updated=
-
-prev.filter(
+const updated = prev.filter(
 
 (_,i)=>i!==index
 
@@ -227,6 +235,7 @@ if(updated.length===0){
 setRestaurantId(null);
 
 }
+
 
 
 return updated;
@@ -242,13 +251,12 @@ return updated;
 
 
 
-const removeCart=()=>{
 
+const removeCart=()=>{
 
 setCart([]);
 
 setRestaurantId(null);
-
 
 };
 
@@ -258,10 +266,11 @@ setRestaurantId(null);
 
 
 
+
 return(
 
-<CartContext.Provider
 
+<CartContext.Provider
 
 value={{
 
@@ -277,7 +286,6 @@ removeItem,
 
 removeCart
 
-
 }}
 
 
@@ -290,10 +298,11 @@ removeCart
 </CartContext.Provider>
 
 
-)
+);
 
 
 }
+
 
 
 

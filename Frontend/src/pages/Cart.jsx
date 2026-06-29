@@ -173,7 +173,7 @@ cart.map((item,index)=>(
 
 <div
 
-key={index}
+key={item._id || item.id}
 
 className="
 bg-white
