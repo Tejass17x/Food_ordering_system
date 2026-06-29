@@ -1,255 +1,211 @@
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import API from "../services/api";
+import loginBg from "../assets/login-bg.PNG";
 
+import {
+  FaUser,
+  FaEnvelope,
+  FaPhone,
+  FaLock,
+  FaUtensils,
+} from "react-icons/fa";
 
-function Signup(){
+import { IoEye, IoEyeOff } from "react-icons/io5";
 
-const navigate=useNavigate();
+function Signup() {
+  const navigate = useNavigate();
 
+  const [showPassword, setShowPassword] = useState(false);
 
-const [data,setData]=useState({
+  const [loading, setLoading] = useState(false);
 
-name:"",
-email:"",
-mobile:"",
-password:""
+  const [data, setData] = useState({
+    name: "",
+    email: "",
+    mobile: "",
+    password: "",
+  });
 
-});
+  const change = (e) => {
+    setData({
+      ...data,
+      [e.target.name]: e.target.value,
+    });
+  };
 
+  const signup = async () => {
+    if (
+      !data.name ||
+      !data.email ||
+      !data.mobile ||
+      !data.password
+    ) {
+      alert("Please fill all fields");
+      return;
+    }
 
+    try {
+      setLoading(true);
 
-const change=(e)=>{
+      await API.post("/auth/signup", data);
 
-setData({
+      alert("Signup Successful");
 
-...data,
+      navigate("/");
+    } catch (error) {
+      console.log(error);
 
-[e.target.name]:e.target.value
+      alert(
+        error.response?.data?.message ||
+          "Signup Failed"
+      );
+    } finally {
+      setLoading(false);
+    }
+  };
 
-});
+  return (
+    <div
+      className="min-h-screen bg-cover bg-center flex items-center justify-center relative px-4"
+      style={{
+        backgroundImage: `url(${loginBg})`,
+      }}
+    >
+      {/* Overlay */}
 
-};
+      <div className="absolute inset-0 bg-black/60"></div>
 
+      {/* Card */}
 
+      <div className="relative z-10 w-full max-w-md bg-white/15 backdrop-blur-xl rounded-3xl border border-white/20 shadow-2xl p-8">
 
-const signup=async()=>{
+        {/* Logo */}
 
+        <div className="flex justify-center mb-6">
+          <div className="w-20 h-20 rounded-full bg-orange-500 flex items-center justify-center shadow-lg">
+            <FaUtensils className="text-white text-3xl" />
+          </div>
+        </div>
 
-try{
+        {/* Heading */}
 
+        <h1 className="text-4xl font-bold text-center text-white">
+          Create Account
+        </h1>
 
-await API.post(
-"/auth/signup",
-data
-);
+        <p className="text-center text-gray-200 mt-2 mb-8">
+          Join Food Ordering Today 🍔
+        </p>
 
+        {/* Name */}
 
-alert("Signup Successful");
+        <div className="relative mb-4">
+          <FaUser className="absolute left-4 top-1/2 -translate-y-1/2 text-gray-500" />
 
+          <input
+            type="text"
+            name="name"
+            placeholder="Full Name"
+            value={data.name}
+            onChange={change}
+            className="w-full bg-white rounded-xl py-3 pl-12 pr-4 outline-none focus:ring-2 focus:ring-orange-500"
+          />
+        </div>
 
-navigate("/");
+        {/* Email */}
 
+        <div className="relative mb-4">
+          <FaEnvelope className="absolute left-4 top-1/2 -translate-y-1/2 text-gray-500" />
 
+          <input
+            type="email"
+            name="email"
+            placeholder="Email Address"
+            value={data.email}
+            onChange={change}
+            className="w-full bg-white rounded-xl py-3 pl-12 pr-4 outline-none focus:ring-2 focus:ring-orange-500"
+          />
+        </div>
+
+        {/* Mobile */}
+
+        <div className="relative mb-4">
+          <FaPhone className="absolute left-4 top-1/2 -translate-y-1/2 text-gray-500" />
+
+          <input
+            type="text"
+            name="mobile"
+            placeholder="Mobile Number"
+            value={data.mobile}
+            onChange={change}
+            className="w-full bg-white rounded-xl py-3 pl-12 pr-4 outline-none focus:ring-2 focus:ring-orange-500"
+          />
+        </div>
+
+        {/* Password */}
+
+        <div className="relative mb-6">
+
+          <FaLock className="absolute left-4 top-1/2 -translate-y-1/2 text-gray-500" />
+
+          <input
+            type={showPassword ? "text" : "password"}
+            name="password"
+            placeholder="Password"
+            value={data.password}
+            onChange={change}
+            className="w-full bg-white rounded-xl py-3 pl-12 pr-12 outline-none focus:ring-2 focus:ring-orange-500"
+          />
+
+          <button
+            type="button"
+            className="absolute right-4 top-1/2 -translate-y-1/2 text-gray-500"
+            onClick={() => setShowPassword(!showPassword)}
+          >
+            {showPassword ? (
+              <IoEyeOff size={22} />
+            ) : (
+              <IoEye size={22} />
+            )}
+          </button>
+
+        </div>
+
+        {/* Signup Button */}
+
+        <button
+          onClick={signup}
+          disabled={loading}
+          className="w-full bg-gradient-to-r from-orange-500 to-red-500 hover:scale-105 duration-300 text-white py-3 rounded-xl font-bold shadow-lg"
+        >
+          {loading ? "Creating Account..." : "Create Account"}
+        </button>
+
+        {/* Divider */}
+
+        <div className="flex items-center my-6">
+          <div className="flex-1 h-px bg-white/30"></div>
+
+          <span className="px-3 text-white text-sm">
+            OR
+          </span>
+
+          <div className="flex-1 h-px bg-white/30"></div>
+        </div>
+
+        {/* Login */}
+
+        <button
+          onClick={() => navigate("/")}
+          className="w-full border border-white text-white py-3 rounded-xl hover:bg-white hover:text-black duration-300 font-semibold"
+        >
+          Already Have an Account? Login
+        </button>
+
+      </div>
+    </div>
+  );
 }
-catch(error){
-
-console.log(error);
-
-
-alert(
-error.response?.data?.message ||
-"Signup Failed"
-);
-
-
-}
-
-
-};
-
-
-
-return(
-
-<div
-
-className="
-min-h-screen
-bg-gray-100
-flex
-items-center
-justify-center
-"
-
->
-
-
-<div
-
-className="
-bg-white
-p-8
-rounded-3xl
-shadow-xl
-w-96
-"
-
->
-
-
-<h1
-
-className="
-text-3xl
-font-bold
-text-center
-mb-6
-text-orange-500
-"
-
->
-
-Create Account
-
-</h1>
-
-
-
-<input
-
-name="name"
-
-placeholder="Name"
-
-className="
-border
-w-full
-p-3
-rounded-xl
-mb-3
-"
-
-onChange={change}
-
-/>
-
-
-
-
-<input
-
-name="email"
-
-placeholder="Email"
-
-className="
-border
-w-full
-p-3
-rounded-xl
-mb-3
-"
-
-onChange={change}
-
-/>
-
-
-
-
-<input
-
-name="mobile"
-
-placeholder="Mobile"
-
-className="
-border
-w-full
-p-3
-rounded-xl
-mb-3
-"
-
-onChange={change}
-
-/>
-
-
-
-
-<input
-
-name="password"
-
-placeholder="Password"
-
-type="password"
-
-className="
-border
-w-full
-p-3
-rounded-xl
-mb-5
-"
-
-onChange={change}
-
-/>
-
-
-
-
-<button
-
-onClick={signup}
-
-className="
-bg-orange-500
-text-white
-w-full
-p-3
-rounded-xl
-font-bold
-"
-
->
-
-Signup
-
-</button>
-
-
-
-
-<p
-
-className="
-text-center
-mt-5
-cursor-pointer
-"
-
-onClick={()=>navigate("/")}
-
->
-
-Already have account?
-
-</p>
-
-
-
-</div>
-
-
-</div>
-
-)
-
-}
-
 
 export default Signup;

@@ -1,27 +1,37 @@
-import {useNavigate} from "react-router-dom";
+import { useNavigate } from "react-router-dom";
+
+import {
+  FaStar,
+  FaClock,
+  FaMapMarkerAlt
+} from "react-icons/fa";
 
 
-function RestaurantCard({restaurant}){
+function RestaurantCard({ restaurant }) {
 
 
 const navigate = useNavigate();
 
 
-return(
+
+return (
 
 <div
-
 className="
 bg-white
-rounded-2xl
-shadow-xl
+rounded-3xl
 overflow-hidden
-hover:scale-105
-transition
+shadow-lg
+hover:shadow-2xl
+hover:-translate-y-2
 duration-300
+cursor-pointer
 "
-
 >
+
+
+
+<div className="relative">
 
 
 <img
@@ -32,7 +42,7 @@ alt={restaurant.name}
 
 className="
 w-full
-h-52
+h-56
 object-cover
 "
 
@@ -40,15 +50,44 @@ object-cover
 
 
 
+<div
+className="
+absolute
+top-4
+right-4
+bg-green-500
+text-white
+px-3
+py-1
+rounded-full
+flex
+items-center
+gap-1
+font-semibold
+"
+>
+
+<FaStar/>
+
+{restaurant.rating}
+
+</div>
+
+
+</div>
+
+
+
+
+
 <div className="p-5">
 
 
-<h2
-className="
+
+<h2 className="
 text-2xl
 font-bold
-"
->
+">
 
 {restaurant.name}
 
@@ -56,59 +95,55 @@ font-bold
 
 
 
-<div
-className="
-flex
-justify-between
-mt-3
-"
->
-
-<span
-className="
-text-green-600
-font-bold
-"
->
-
-⭐ {restaurant.rating}
-
-</span>
-
-
-<span>
-
-🕒 {restaurant.time}
-
-</span>
-
-
-</div>
-
-
-
-<p
-className="
+<p className="
 text-gray-500
-mt-3
-"
->
+mt-2
+">
 
 {restaurant.category}
 
 </p>
 
 
-<p
-className="
-text-gray-400
-mt-2
-"
->
 
-📍 {restaurant.location}
 
-</p>
+
+<div className="
+flex
+items-center
+gap-2
+mt-4
+text-gray-600
+">
+
+<FaClock/>
+
+{restaurant.time}
+
+</div>
+
+
+
+
+
+
+<div className="
+flex
+items-center
+gap-2
+mt-3
+text-gray-600
+">
+
+<FaMapMarkerAlt/>
+
+{restaurant.location}
+
+</div>
+
+
+
+
 
 
 
@@ -117,14 +152,17 @@ mt-2
 onClick={()=>navigate(`/restaurant/${restaurant.id}`)}
 
 className="
-mt-5
 w-full
-bg-orange-500
-hover:bg-orange-600
-text-white
+mt-6
 py-3
 rounded-xl
+bg-gradient-to-r
+from-orange-500
+to-red-500
+text-white
 font-bold
+hover:scale-105
+duration-300
 "
 
 >
@@ -135,13 +173,16 @@ View Menu
 
 
 
-</div>
 
 
 </div>
 
 
-)
+</div>
+
+
+);
+
 
 }
 

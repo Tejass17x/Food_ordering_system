@@ -5,10 +5,9 @@ import Footer from "../components/Footer";
 
 import { useCart } from "../context/CartContext";
 
-import { useState } from "react";
+import { useState,useEffect } from "react";
 
-import restaurants from "../data/restaurants";
-
+import API from "../services/api";
 
 
 function RestaurantDetails(){
@@ -17,19 +16,39 @@ function RestaurantDetails(){
 const {id}=useParams();
 
 
+const [restaurant,setRestaurant]=useState(null);
 
-const restaurant = restaurants.find(
 
-(item)=>item.id === Number(id)
-
-);
+const [added,setAdded]=useState(null);
 
 
 
 const {addToCart}=useCart();
 
 
-const [added,setAdded]=useState(null);
+
+
+useEffect(()=>{
+
+
+API.get(`/restaurants/${id}`)
+
+.then(res=>{
+
+setRestaurant(res.data);
+
+})
+
+.catch(err=>{
+
+console.log(err);
+
+});
+
+
+},[id]);
+
+
 
 
 
@@ -39,20 +58,30 @@ if(!restaurant){
 
 return(
 
-<div className="min-h-screen flex items-center justify-center">
+<div className="
+min-h-screen
+flex
+items-center
+justify-center
+">
 
-<h1 className="text-3xl font-bold">
+<h1 className="
+text-3xl
+font-bold
+">
 
-Restaurant Not Found
+Loading...
 
 </h1>
 
+
 </div>
 
-);
-
+)
 
 }
+
+
 
 
 
@@ -69,17 +98,18 @@ addToCart(
 
 restaurantName:restaurant.name,
 
-restaurantId:restaurant.id
+restaurantId:restaurant._id
 
 },
 
-restaurant.id
+restaurant._id
+
 
 );
 
 
 
-setAdded(food.id);
+setAdded(food._id);
 
 
 
@@ -108,10 +138,17 @@ return(
 
 
 
-<div className="bg-gray-100 min-h-screen p-5">
+<div className="
+bg-gray-100
+min-h-screen
+p-5
+">
 
 
-<div className="max-w-6xl mx-auto">
+<div className="
+max-w-6xl
+mx-auto
+">
 
 
 
@@ -139,6 +176,7 @@ shadow-lg
 
 
 
+
 <div className="
 bg-white
 rounded-2xl
@@ -159,6 +197,7 @@ font-bold
 
 
 
+
 <p className="
 text-gray-500
 mt-2
@@ -168,7 +207,6 @@ text-lg
 {restaurant.category}
 
 </p>
-
 
 
 
@@ -274,8 +312,6 @@ gap-6
 
 
 
-
-
 {
 
 restaurant.menu.map((food)=>(
@@ -283,7 +319,7 @@ restaurant.menu.map((food)=>(
 
 <div
 
-key={food.id}
+key={food._id}
 
 className="
 bg-white
@@ -295,12 +331,10 @@ justify-between
 items-center
 "
 
-
 >
 
 
 <div>
-
 
 <h3 className="
 text-xl
@@ -310,7 +344,6 @@ font-bold
 {food.name}
 
 </h3>
-
 
 
 <p className="
@@ -325,9 +358,7 @@ mt-2
 </p>
 
 
-
 </div>
-
 
 
 
@@ -336,13 +367,9 @@ mt-2
 
 <button
 
-
 onClick={()=>addItem(food)}
 
-
-className={
-
-`
+className={`
 px-5
 py-2
 rounded-xl
@@ -350,7 +377,7 @@ text-white
 font-semibold
 
 ${
-added===food.id
+added===food._id
 
 ?
 
@@ -362,17 +389,14 @@ added===food.id
 
 }
 
-`
-
-}
-
+`}
 
 >
 
 
 {
 
-added===food.id
+added===food._id
 
 ?
 
@@ -385,15 +409,12 @@ added===food.id
 }
 
 
-
 </button>
 
 
 
 
-
 </div>
-
 
 
 ))
@@ -403,8 +424,6 @@ added===food.id
 
 
 
-
-
 </div>
 
 
@@ -414,7 +433,6 @@ added===food.id
 
 
 </div>
-
 
 
 
@@ -424,11 +442,11 @@ added===food.id
 
 </>
 
+
 )
 
 
 }
-
 
 
 export default RestaurantDetails;

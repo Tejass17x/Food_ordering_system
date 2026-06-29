@@ -142,35 +142,6 @@ price:150
 }
 ]
 
-},
-
-
-{
-id:6,
-name:"Sweet Dessert Cafe",
-category:"Desserts",
-rating:"4.5",
-time:"15 mins",
-location:"Nashik",
-
-description:"Ice cream and cakes",
-
-image:
-"https://images.unsplash.com/photo-1563729784474-d77dbb933a9e?w=900",
-
-menu:[
-{
-id:601,
-name:"Chocolate Cake",
-price:250
-},
-{
-id:602,
-name:"Ice Cream",
-price:100
-}
-]
-
 }
 
 ];

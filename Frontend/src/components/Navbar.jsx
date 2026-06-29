@@ -1,40 +1,19 @@
-import { useState } from "react";
-import {
-FaUserCircle,
-FaShoppingCart,
-FaBars
-} from "react-icons/fa";
-
 import { useNavigate } from "react-router-dom";
-import { useCart } from "../context/CartContext";
+import {
+FaHome,
+FaShoppingCart,
+FaUser,
+FaUtensils,
+FaStore
+} from "react-icons/fa";
 
 
 function Navbar(){
 
-
-const [profileOpen,setProfileOpen]=useState(false);
-
-const [menuOpen,setMenuOpen]=useState(false);
-
-
-const navigate=useNavigate();
-
-
-const {cart}=useCart();
-
-
-
-const handleLogout=()=>{
-
-navigate("/");
-
-};
-
-
+const navigate = useNavigate();
 
 
 return(
-
 
 <nav className="
 bg-white
@@ -44,11 +23,10 @@ top-0
 z-50
 ">
 
-
 <div className="
 max-w-7xl
 mx-auto
-px-4
+px-5
 py-4
 flex
 justify-between
@@ -56,323 +34,123 @@ items-center
 ">
 
 
-<h1
+{/* Logo */}
 
+<div
 onClick={()=>navigate("/home")}
-
 className="
+flex
+items-center
+gap-2
+cursor-pointer
+">
+
+<div className="
+bg-orange-500
+text-white
+p-3
+rounded-full
+">
+
+<FaUtensils/>
+
+</div>
+
+
+<h1 className="
 text-2xl
 font-bold
 text-orange-500
-cursor-pointer
-"
+">
 
->
-
-FoodOrder
+Foodie
 
 </h1>
+
+</div>
 
 
 
 
 
 <div className="
-hidden
-md:flex
+flex
 items-center
-gap-8
+gap-6
+text-gray-700
 ">
+
 
 
 <button
 onClick={()=>navigate("/home")}
->
-Home
-</button>
-
-
-
-<button>
-Restaurants
-</button>
-
-
-<button>
-Orders
-</button>
-
-
-
-
-
-<div
-
-onClick={()=>navigate("/cart")}
-
 className="
-relative
-cursor-pointer
-"
-
->
-
-
-<FaShoppingCart size={22}/>
-
-
-
-{
-
-cart.length > 0 &&
-
-
-<span
-
-className="
-absolute
--top-3
--right-3
-bg-orange-500
-text-white
-text-xs
-w-5
-h-5
-rounded-full
 flex
 items-center
-justify-center
-"
-
->
-
-{cart.length}
-
-</span>
-
-
-}
-
-
-
-</div>
-
-
-
-
-
-
-
-<div className="relative">
-
-
-<FaUserCircle
-
-size={30}
-
-className="
-cursor-pointer
-text-gray-700
-"
-
-onClick={()=>
-setProfileOpen(!profileOpen)
-}
-
-/>
-
-
-
-
-{
-
-profileOpen &&
-
-
-<div className="
-absolute
-right-0
-mt-3
-w-48
-bg-white
-shadow-xl
-rounded-xl
-border
+gap-2
+hover:text-orange-500
 ">
 
+<FaHome/>
 
-<div className="p-3 border-b">
-
-<p className="font-semibold">
-Tejas
-</p>
-
-<p className="text-sm text-gray-500">
-tejas@email.com
-</p>
-
-</div>
-
-
-
-<button
-
-onClick={()=>navigate("/profile")}
-
-className="
-w-full
-text-left
-px-4
-py-3
-hover:bg-gray-100
-"
-
->
-
-My Profile
-
-</button>
-
-
-
-<button
-className="
-w-full
-text-left
-px-4
-py-3
-hover:bg-gray-100
-"
->
-
-My Orders
-
-</button>
-
-
-
-
-<button
-
-onClick={handleLogout}
-
-className="
-w-full
-text-left
-px-4
-py-3
-text-red-500
-"
-
->
-
-Sign Out
-
-</button>
-
-
-</div>
-
-
-}
-
-
-
-</div>
-
-
-</div>
-
-
-
-
-
-
-<button
-
-className="md:hidden"
-
-onClick={()=>
-setMenuOpen(!menuOpen)
-}
-
->
-
-<FaBars size={24}/>
-
-</button>
-
-
-
-
-</div>
-
-
-
-
-
-
-{
-
-menuOpen &&
-
-
-<div className="
-md:hidden
-border-t
-">
-
-
-<button
-className="
-block
-w-full
-text-left
-px-4
-py-3
-border-b
-"
->
 Home
+
 </button>
 
 
 
-<button
 
+
+<button
+onClick={()=>navigate("/restaurants")}
+className="
+flex
+items-center
+gap-2
+hover:text-orange-500
+">
+
+<FaStore/>
+
+Restaurants
+
+</button>
+
+
+
+
+
+<button
 onClick={()=>navigate("/cart")}
-
 className="
-block
-w-full
-text-left
-px-4
-py-3
-border-b
-"
+flex
+items-center
+gap-2
+hover:text-orange-500
+">
 
->
+<FaShoppingCart/>
 
-Cart ({cart.length})
+Cart
 
 </button>
 
 
 
 
-<button
-onClick={handleLogout}
-className="
-block
-w-full
-text-left
-px-4
-py-3
-text-red-500
-"
->
 
-Sign Out
+<button
+onClick={()=>navigate("/profile")}
+className="
+flex
+items-center
+gap-2
+hover:text-orange-500
+">
+
+<FaUser/>
+
+Profile
 
 </button>
 
@@ -381,9 +159,7 @@ Sign Out
 </div>
 
 
-}
-
-
+</div>
 
 </nav>
 
@@ -391,7 +167,6 @@ Sign Out
 )
 
 }
-
 
 
 export default Navbar;

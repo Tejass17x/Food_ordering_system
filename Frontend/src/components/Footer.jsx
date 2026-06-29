@@ -1,470 +1,191 @@
-import { 
-  FaFacebook,
-  FaInstagram,
-  FaTwitter,
-  FaYoutube,
-  FaApple,
-  FaGooglePlay
-} from "react-icons/fa";
+function Footer() {
+  return (
+    <footer className="bg-gray-900 text-white mt-20">
 
+      <div className="
+        max-w-7xl
+        mx-auto
+        px-6
+        py-12
+        grid
+        grid-cols-1
+        md:grid-cols-4
+        gap-10
+      ">
 
 
-function Footer(){
+        {/* Brand */}
 
+        <div>
 
-return(
+          <h1 className="
+            text-3xl
+            font-bold
+            text-orange-500
+            mb-4
+          ">
+            Foodie 🍔
+          </h1>
 
 
-<footer className="
-bg-gray-900
-text-gray-300
-mt-10
-">
+          <p className="
+            text-gray-400
+            leading-relaxed
+          ">
+            Discover delicious food from your favorite restaurants.
+            Order fresh meals anytime, anywhere.
+          </p>
 
 
+        </div>
 
-<div className="
-max-w-7xl
-mx-auto
-px-5
-py-12
-grid
-grid-cols-1
-sm:grid-cols-2
-lg:grid-cols-4
-gap-8
-">
 
 
 
 
+        {/* Quick Links */}
 
-{/* Brand */}
+        <div>
 
+          <h2 className="
+            text-xl
+            font-bold
+            mb-4
+          ">
+            Quick Links
+          </h2>
 
-<div>
 
+          <ul className="
+            space-y-3
+            text-gray-400
+          ">
 
-<h1 className="
-text-3xl
-font-bold
-text-orange-500
-mb-4
-">
+            <li className="hover:text-orange-500 cursor-pointer">
+              Home
+            </li>
 
-FoodOrder
+            <li className="hover:text-orange-500 cursor-pointer">
+              Restaurants
+            </li>
 
-</h1>
+            <li className="hover:text-orange-500 cursor-pointer">
+              Offers
+            </li>
 
+            <li className="hover:text-orange-500 cursor-pointer">
+              Contact
+            </li>
 
-<p className="
-text-gray-400
-leading-6
-">
 
-Discover the best food from your
-favorite restaurants. Order fresh
-and delicious meals anytime.
+          </ul>
 
-</p>
+        </div>
 
 
 
-<div className="
-flex
-gap-4
-mt-5
-">
 
 
-<FaFacebook
-size={25}
-className="
-cursor-pointer
-hover:text-orange-500
-transition
-"
-/>
 
+        {/* Services */}
 
-<FaInstagram
-size={25}
-className="
-cursor-pointer
-hover:text-orange-500
-transition
-"
-/>
+        <div>
 
+          <h2 className="
+            text-xl
+            font-bold
+            mb-4
+          ">
+            Services
+          </h2>
 
-<FaTwitter
-size={25}
-className="
-cursor-pointer
-hover:text-orange-500
-transition
-"
-/>
 
+          <ul className="
+            space-y-3
+            text-gray-400
+          ">
 
-<FaYoutube
-size={25}
-className="
-cursor-pointer
-hover:text-orange-500
-transition
-"
-/>
+            <li>
+              Fast Delivery 🚴
+            </li>
 
+            <li>
+              Quality Food 🍕
+            </li>
 
+            <li>
+              Secure Payment 💳
+            </li>
 
-</div>
+            <li>
+              24/7 Support 📞
+            </li>
 
 
-</div>
+          </ul>
 
+        </div>
 
 
 
 
 
 
+        {/* Contact */}
 
-{/* Company */}
+        <div>
 
+          <h2 className="
+            text-xl
+            font-bold
+            mb-4
+          ">
+            Contact
+          </h2>
 
-<div>
 
+          <p className="text-gray-400 mb-3">
+            📍 Nashik, Maharashtra
+          </p>
 
-<h2 className="
-text-white
-font-bold
-text-lg
-mb-4
-">
 
-Company
+          <p className="text-gray-400 mb-3">
+            📧 support@foodie.com
+          </p>
 
-</h2>
 
+          <p className="text-gray-400">
+            📞 +91 98765 43210
+          </p>
 
 
-<ul className="
-space-y-3
-">
+        </div>
 
 
-<li className="
-hover:text-orange-500
-cursor-pointer
-">
+      </div>
 
-About Us
 
-</li>
 
 
-<li className="
-hover:text-orange-500
-cursor-pointer
-">
 
-Careers
+      {/* Bottom */}
 
-</li>
+      <div className="
+        border-t
+        border-gray-700
+        py-5
+        text-center
+        text-gray-400
+      ">
 
+        © {new Date().getFullYear()} Foodie. All Rights Reserved.
 
-<li className="
-hover:text-orange-500
-cursor-pointer
-">
+      </div>
 
-Blog
 
-</li>
-
-
-<li className="
-hover:text-orange-500
-cursor-pointer
-">
-
-Contact
-
-</li>
-
-
-
-</ul>
-
-
-</div>
-
-
-
-
-
-
-
-
-{/* Customer */}
-
-
-<div>
-
-
-<h2 className="
-text-white
-font-bold
-text-lg
-mb-4
-">
-
-Customer Support
-
-</h2>
-
-
-
-<ul className="
-space-y-3
-">
-
-
-<li className="
-hover:text-orange-500
-cursor-pointer
-">
-
-Help & Support
-
-</li>
-
-
-<li className="
-hover:text-orange-500
-cursor-pointer
-">
-
-Order Tracking
-
-</li>
-
-
-<li className="
-hover:text-orange-500
-cursor-pointer
-">
-
-Refund Policy
-
-</li>
-
-
-<li className="
-hover:text-orange-500
-cursor-pointer
-">
-
-Privacy Policy
-
-</li>
-
-
-
-</ul>
-
-
-</div>
-
-
-
-
-
-
-
-
-
-{/* App Download */}
-
-
-<div>
-
-
-<h2 className="
-text-white
-font-bold
-text-lg
-mb-4
-">
-
-Download App
-
-</h2>
-
-
-
-<p className="
-text-gray-400
-mb-4
-">
-
-Get the best food ordering
-experience on mobile.
-
-</p>
-
-
-
-<button className="
-flex
-items-center
-gap-3
-bg-black
-border
-border-gray-700
-rounded-xl
-px-4
-py-3
-mb-3
-w-full
-hover:border-orange-500
-transition
-">
-
-
-<FaGooglePlay
-size={25}
-/>
-
-
-<div className="text-left">
-
-<p className="
-text-xs
-">
-
-GET IT ON
-
-</p>
-
-
-<p className="
-font-semibold
-text-white
-">
-
-Google Play
-
-</p>
-
-
-</div>
-
-
-
-</button>
-
-
-
-
-
-
-
-<button className="
-flex
-items-center
-gap-3
-bg-black
-border
-border-gray-700
-rounded-xl
-px-4
-py-3
-w-full
-hover:border-orange-500
-transition
-">
-
-
-<FaApple
-size={28}
-/>
-
-
-<div className="text-left">
-
-<p className="
-text-xs
-">
-
-DOWNLOAD ON
-
-</p>
-
-
-<p className="
-font-semibold
-text-white
-">
-
-App Store
-
-</p>
-
-
-</div>
-
-
-
-</button>
-
-
-
-
-</div>
-
-
-
-
-
-
-</div>
-
-
-
-
-
-
-
-
-<div className="
-border-t
-border-gray-700
-py-5
-text-center
-text-sm
-text-gray-500
-">
-
-
-© {new Date().getFullYear()} FoodOrder. All rights reserved.
-
-
-</div>
-
-
-
-
-
-</footer>
-
-
-)
-
-
+    </footer>
+  );
 }
-
 
 
 export default Footer;

@@ -6,8 +6,7 @@ const connectDB = require("./config/db");
 
 const authRoutes = require("./routes/authRoutes");
 const restaurantRoutes = require("./routes/restaurantRoutes");
-
-
+const userRoutes = require("./routes/userRoutes");
 const app = express();
 
 
@@ -68,7 +67,7 @@ app.get("/", (req, res) => {
 // Routes
 app.use("/api/auth", authRoutes);
 app.use("/api/restaurants", restaurantRoutes);
-
+app.use("/api/user", userRoutes);
 
 // Server
 const PORT = process.env.PORT || 5000;

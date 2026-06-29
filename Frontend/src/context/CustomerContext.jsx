@@ -8,64 +8,72 @@ const CustomerContext = createContext();
 export function CustomerProvider({children}){
 
 
-const [customer,setCustomer] = useState({
+const savedUser = JSON.parse(
+localStorage.getItem("user")
+);
 
-name:"Tejas",
 
-email:"tejas@gmail.com",
 
-mobile:"9876543210",
+const [customer,setCustomer] = useState(
 
+
+savedUser
+
+?
+
+{
+
+...savedUser,
+
+
+addresses: savedUser.addresses || [],
+
+favorites: savedUser.favorites || [],
+
+orders: savedUser.orders || [],
+
+wallet: savedUser.wallet || 0,
+
+notifications: savedUser.notifications || []
+
+
+}
+
+
+:
+
+
+{
+
+name:"",
+
+email:"",
+
+mobile:"",
 
 profileImage:"",
 
 
-addresses:[
-
-{
-id:1,
-type:"Home",
-address:"Nashik Maharashtra",
-phone:"9876543210"
-}
-
-],
-
+addresses:[],
 
 
 favorites:[],
 
 
-orders:[
+orders:[],
 
-{
-id:101,
-restaurant:"Burger King",
-items:[
-"Chicken Burger",
-"French Fries"
-],
-amount:298,
-status:"Delivered"
+
+wallet:0,
+
+
+notifications:[]
+
 }
 
-],
+
+);
 
 
-
-wallet:500,
-
-
-notifications:[
-
-"Your order delivered",
-
-"New offer available"
-
-]
-
-
-});
 
 
 
@@ -73,12 +81,17 @@ notifications:[
 
 return(
 
+
 <CustomerContext.Provider
 
 value={{
+
 customer,
+
 setCustomer
+
 }}
+
 
 >
 
@@ -98,8 +111,12 @@ setCustomer
 
 
 
+
+
 export function useCustomer(){
 
+
 return useContext(CustomerContext);
+
 
 }

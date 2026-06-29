@@ -1,7 +1,16 @@
 import Navbar from "../components/Navbar";
+import Footer from "../components/Footer";
 import { useCustomer } from "../context/CustomerContext";
 import { useNavigate } from "react-router-dom";
 
+import {
+  FaUserEdit,
+  FaHeart,
+  FaSignOutAlt,
+  FaBox,
+  FaWallet,
+  FaMapMarkerAlt
+} from "react-icons/fa";
 
 
 function Profile(){
@@ -12,13 +21,13 @@ customer
 }=useCustomer();
 
 
-
 const navigate = useNavigate();
 
 
 
-
 const logout=()=>{
+
+localStorage.removeItem("token");
 
 navigate("/");
 
@@ -28,13 +37,41 @@ navigate("/");
 
 
 
+if(!customer){
+
+return(
+
+<div className="
+min-h-screen
+flex
+items-center
+justify-center
+">
+
+<h1 className="
+text-3xl
+font-bold
+">
+
+Please Login First
+
+</h1>
+
+</div>
+
+)
+
+}
+
+
+
+
+
 return(
 
 <>
 
-
 <Navbar/>
-
 
 
 
@@ -44,8 +81,6 @@ min-h-screen
 bg-gray-100
 p-5
 ">
-
-
 
 
 
@@ -60,32 +95,32 @@ space-y-6
 
 
 
+{/* Profile Card */}
+
+
+
 <div className="
 bg-white
 rounded-3xl
-shadow-lg
+shadow-xl
 p-8
 flex
 flex-col
 md:flex-row
-gap-6
 items-center
+gap-8
 ">
-
-
-
 
 
 
 <img
 
 src={
-customer.profileImage
-?
-customer.profileImage
-:
+customer.profileImage ||
 "https://cdn-icons-png.flaticon.com/512/3135/3135715.png"
 }
+
+alt="profile"
 
 className="
 w-32
@@ -97,10 +132,6 @@ border-orange-500
 "
 
 />
-
-
-
-
 
 
 
@@ -119,7 +150,10 @@ font-bold
 
 
 
-<p className="text-gray-500">
+<p className="
+text-gray-500
+mt-2
+">
 
 {customer.email}
 
@@ -127,12 +161,14 @@ font-bold
 
 
 
-<p className="text-gray-500">
+<p className="
+text-gray-500
+mt-1
+">
 
 📱 {customer.mobile}
 
 </p>
-
 
 
 
@@ -142,15 +178,21 @@ font-bold
 onClick={()=>navigate("/edit-profile")}
 
 className="
-mt-4
+mt-5
 bg-orange-500
+hover:bg-orange-600
 text-white
 px-6
-py-2
+py-3
 rounded-xl
+flex
+items-center
+gap-2
 "
 
 >
+
+<FaUserEdit/>
 
 Edit Profile
 
@@ -161,13 +203,17 @@ Edit Profile
 </div>
 
 
-
 </div>
 
 
 
 
 
+
+
+
+
+{/* Stats */}
 
 
 
@@ -180,29 +226,41 @@ gap-5
 
 
 
+
+
 <div className="
 bg-white
-p-5
 rounded-2xl
 shadow
+p-5
 text-center
 ">
+
+
+<FaBox className="
+mx-auto
+text-orange-500
+text-3xl
+"/>
+
 
 <h2 className="
 text-3xl
 font-bold
-text-orange-500
+mt-3
 ">
 
-{customer.orders.length}
+{customer.orders?.length || 0}
 
 </h2>
+
 
 <p>
 
 Orders
 
 </p>
+
 
 </div>
 
@@ -214,20 +272,27 @@ Orders
 
 <div className="
 bg-white
-p-5
 rounded-2xl
 shadow
+p-5
 text-center
 ">
+
+
+<FaHeart className="
+mx-auto
+text-red-500
+text-3xl
+"/>
 
 
 <h2 className="
 text-3xl
 font-bold
-text-orange-500
+mt-3
 ">
 
-{customer.favorites.length}
+{customer.favorites?.length || 0}
 
 </h2>
 
@@ -247,22 +312,30 @@ Favorites
 
 
 
+
 <div className="
 bg-white
-p-5
 rounded-2xl
 shadow
+p-5
 text-center
 ">
+
+
+<FaWallet className="
+mx-auto
+text-green-500
+text-3xl
+"/>
 
 
 <h2 className="
 text-3xl
 font-bold
-text-orange-500
+mt-3
 ">
 
-₹{customer.wallet}
+₹{customer.wallet || 0}
 
 </h2>
 
@@ -281,30 +354,38 @@ Wallet
 
 
 
+
+
 <div
 
 onClick={()=>navigate("/orders")}
 
 className="
 bg-white
-p-5
 rounded-2xl
 shadow
+p-5
 text-center
 cursor-pointer
+hover:scale-105
+transition
 "
+
 
 >
 
 
-<h2 className="text-3xl">
+<FaBox className="
+mx-auto
+text-blue-500
+text-3xl
+"/>
 
-📦
 
-</h2>
-
-
-<p>
+<p className="
+mt-3
+font-semibold
+">
 
 My Orders
 
@@ -315,6 +396,7 @@ My Orders
 
 
 
+
 </div>
 
 
@@ -322,6 +404,10 @@ My Orders
 
 
 
+
+
+
+{/* Address */}
 
 
 
@@ -345,7 +431,11 @@ Saved Addresses
 
 
 
+
 {
+
+customer.addresses?.length > 0 ?
+
 
 customer.addresses.map((item)=>(
 
@@ -364,21 +454,33 @@ mb-3
 >
 
 
-<h3 className="font-bold">
+<h3 className="
+font-bold
+flex
+items-center
+gap-2
+">
 
-🏠 {item.type}
+<FaMapMarkerAlt className="text-orange-500"/>
+
+{item.type}
 
 </h3>
 
 
-<p>
+<p className="
+text-gray-600
+mt-2
+">
 
 {item.address}
 
 </p>
 
 
-<p>
+<p className="
+text-gray-600
+">
 
 📱 {item.phone}
 
@@ -391,8 +493,19 @@ mb-3
 ))
 
 
-}
+:
 
+
+<p className="
+text-gray-500
+">
+
+No saved address
+
+</p>
+
+
+}
 
 
 
@@ -405,6 +518,11 @@ mb-3
 
 
 
+
+{/* Account Settings */}
+
+
+
 <div className="
 bg-white
 rounded-2xl
@@ -413,10 +531,11 @@ p-6
 ">
 
 
+
 <h2 className="
 text-2xl
 font-bold
-mb-4
+mb-5
 ">
 
 Account
@@ -437,13 +556,50 @@ p-4
 rounded-xl
 mb-3
 hover:bg-gray-100
+flex
+items-center
+gap-3
 "
 
 >
 
-✏️ Edit Profile
+<FaUserEdit/>
+
+Edit Profile
 
 </button>
+
+
+
+
+
+
+
+<button
+
+onClick={()=>navigate("/orders")}
+
+className="
+w-full
+border
+p-4
+rounded-xl
+mb-3
+hover:bg-gray-100
+flex
+items-center
+gap-3
+"
+
+>
+
+<FaBox/>
+
+My Orders
+
+</button>
+
+
 
 
 
@@ -458,13 +614,20 @@ p-4
 rounded-xl
 mb-3
 hover:bg-gray-100
+flex
+items-center
+gap-3
 "
 
 >
 
-❤️ Favourite Restaurants
+<FaHeart/>
+
+Favourite Restaurants
 
 </button>
+
+
 
 
 
@@ -481,11 +644,16 @@ p-4
 rounded-xl
 text-red-500
 hover:bg-red-50
+flex
+items-center
+gap-3
 "
 
 >
 
-🚪 Sign Out
+<FaSignOutAlt/>
+
+Sign Out
 
 </button>
 
@@ -493,21 +661,22 @@ hover:bg-red-50
 
 
 
-</div>
-
-
-
-
-
 
 </div>
+
+
 
 
 
 </div>
 
 
+</div>
 
+
+
+
+<Footer/>
 
 
 </>
@@ -515,7 +684,6 @@ hover:bg-red-50
 )
 
 }
-
 
 
 export default Profile;

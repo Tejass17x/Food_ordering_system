@@ -1,12 +1,62 @@
 import axios from "axios";
 
+
+const BASE_URL =
+  window.location.hostname === "localhost"
+    ? "http://localhost:5000/api"
+    : "https://food-ordering-system-y0qw.onrender.com/api";
+
+
+
 const API = axios.create({
-  baseURL: "https://food-ordering-system-y0qw.onrender.com/api",
-  headers: {
-    "Content-Type": "application/json",
-  },
+
+baseURL: BASE_URL,
+
+headers:{
+"Content-Type":"application/json"
+}
+
 });
 
-console.log("API URL =>", API.defaults.baseURL);
+
+
+
+
+API.interceptors.request.use(
+
+(config)=>{
+
+
+const token = localStorage.getItem("token");
+
+
+if(token){
+
+config.headers.Authorization =
+`Bearer ${token}`;
+
+}
+
+
+return config;
+
+
+},
+
+(error)=>{
+
+return Promise.reject(error);
+
+}
+
+);
+
+
+
+
+
+console.log("API:",BASE_URL);
+
+
 
 export default API;
