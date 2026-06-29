@@ -1,11 +1,47 @@
+import {useEffect,useState} from "react";
+
 import Navbar from "../components/Navbar";
 import Footer from "../components/Footer";
 import RestaurantCard from "../components/RestaurantCard";
 
-import restaurants from "../data/restaurants";
+import API from "../services/api";
 
 
 function Restaurants(){
+
+
+const [restaurants,setRestaurants]=useState([]);
+
+
+useEffect(()=>{
+
+
+const getRestaurants=async()=>{
+
+try{
+
+const res=await API.get("/restaurants");
+
+setRestaurants(res.data);
+
+
+}
+catch(error){
+
+console.log(error);
+
+}
+
+};
+
+
+getRestaurants();
+
+
+},[]);
+
+
+
 
 return(
 
@@ -58,7 +94,7 @@ restaurants.map((restaurant)=>(
 
 <RestaurantCard
 
-key={restaurant.id}
+key={restaurant._id}
 
 restaurant={restaurant}
 
@@ -66,6 +102,7 @@ restaurant={restaurant}
 
 
 ))
+
 
 }
 

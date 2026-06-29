@@ -17,6 +17,7 @@ const navigate = useNavigate();
 return (
 
 <div
+
 className="
 bg-white
 rounded-3xl
@@ -27,6 +28,7 @@ hover:-translate-y-2
 duration-300
 cursor-pointer
 "
+
 >
 
 
@@ -51,6 +53,7 @@ object-cover
 
 
 <div
+
 className="
 absolute
 top-4
@@ -65,16 +68,21 @@ items-center
 gap-1
 font-semibold
 "
+
 >
+
 
 <FaStar/>
 
 {restaurant.rating}
 
+
 </div>
 
 
 </div>
+
+
 
 
 
@@ -84,10 +92,14 @@ font-semibold
 
 
 
-<h2 className="
+<h2
+
+className="
 text-2xl
 font-bold
-">
+"
+
+>
 
 {restaurant.name}
 
@@ -95,10 +107,15 @@ font-bold
 
 
 
-<p className="
+
+<p
+
+className="
 text-gray-500
 mt-2
-">
+"
+
+>
 
 {restaurant.category}
 
@@ -108,18 +125,26 @@ mt-2
 
 
 
-<div className="
+
+
+<div
+
+className="
 flex
 items-center
 gap-2
 mt-4
 text-gray-600
-">
+"
+
+>
+
 
 <FaClock/>
 
 {restaurant.time}
 
+
 </div>
 
 
@@ -127,19 +152,28 @@ text-gray-600
 
 
 
-<div className="
+
+<div
+
+className="
 flex
 items-center
 gap-2
 mt-3
 text-gray-600
-">
+"
+
+>
+
 
 <FaMapMarkerAlt/>
 
 {restaurant.location}
 
+
 </div>
+
+
 
 
 
@@ -149,7 +183,9 @@ text-gray-600
 
 <button
 
-onClick={()=>navigate(`/restaurant/${restaurant.id}`)}
+
+onClick={()=>navigate(`/restaurant/${restaurant._id}`)}
+
 
 className="
 w-full
@@ -167,9 +203,13 @@ duration-300
 
 >
 
+
 View Menu
 
+
 </button>
+
+
 
 
 

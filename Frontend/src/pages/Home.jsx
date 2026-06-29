@@ -1,11 +1,11 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 
 import Navbar from "../components/Navbar";
 import Hero from "../components/Hero";
 import RestaurantCard from "../components/RestaurantCard";
 import Footer from "../components/Footer";
 
-import restaurants from "../data/restaurants";
+import API from "../services/api";
 
 
 const foodCategories = [
@@ -49,13 +49,59 @@ function Home(){
 
 const [search,setSearch]=useState("");
 
+const [restaurants,setRestaurants]=useState([]);
+
+const [loading,setLoading]=useState(true);
+
+
+
+useEffect(()=>{
+
+
+const fetchRestaurants=async()=>{
+
+
+try{
+
+
+const res = await API.get("/restaurants");
+
+
+setRestaurants(res.data);
+
+
+}
+
+catch(error){
+
+console.log(error);
+
+}
+
+
+finally{
+
+setLoading(false);
+
+}
+
+
+};
+
+
+fetchRestaurants();
+
+
+},[]);
+
+
+
 
 
 const filteredRestaurants = restaurants.filter((restaurant)=>{
 
 
 const text = search.toLowerCase();
-
 
 
 return(
@@ -87,6 +133,31 @@ food.name.toLowerCase().includes(text)
 
 
 
+if(loading){
+
+return(
+
+<div className="
+min-h-screen
+flex
+items-center
+justify-center
+text-2xl
+font-bold
+">
+
+Loading Restaurants...
+
+</div>
+
+)
+
+}
+
+
+
+
+
 return(
 
 <div className="bg-gray-50 min-h-screen">
@@ -95,8 +166,6 @@ return(
 <Navbar/>
 
 
-
-{/* HERO */}
 
 <Hero
 
@@ -109,8 +178,6 @@ setSearch={setSearch}
 
 
 
-
-{/* FOOD CATEGORY */}
 
 <section className="
 max-w-7xl
@@ -138,7 +205,6 @@ flex
 gap-6
 overflow-x-auto
 pb-4
-scrollbar-hide
 ">
 
 
@@ -162,7 +228,6 @@ duration-300
 cursor-pointer
 "
 
-
 >
 
 
@@ -177,6 +242,7 @@ object-cover
 "
 
 />
+
 
 
 <h3 className="
@@ -200,8 +266,8 @@ py-4
 }
 
 
-</div>
 
+</div>
 
 
 </section>
@@ -212,15 +278,13 @@ py-4
 
 
 
-{/* RESTAURANTS */}
-
-
 <section className="
 max-w-7xl
 mx-auto
 px-5
 pb-10
 ">
+
 
 
 <div className="
@@ -257,6 +321,8 @@ font-semibold
 
 
 
+
+
 <div className="
 grid
 grid-cols-1
@@ -274,7 +340,7 @@ filteredRestaurants.map((restaurant)=>(
 
 <RestaurantCard
 
-key={restaurant.id}
+key={restaurant._id}
 
 restaurant={restaurant}
 
@@ -308,7 +374,6 @@ restaurant={restaurant}
 
 
 }
-
 
 
 export default Home;
